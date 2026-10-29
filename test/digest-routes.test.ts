@@ -39,6 +39,12 @@ function cellTexts(row: string): string[] {
     .map((match) => match[1].replace(/<[^>]*>/g, '').trim());
 }
 
+function retryColumn(html: string): number {
+  const headers = [...html.matchAll(/<th\b[^>]*>([\s\S]*?)<\/th>/gi)]
+    .map((match) => match[1].replace(/<[^>]*>/g, '').trim());
+  return headers.findIndex((header) => /^retr(?:y|ies)$/i.test(header));
+}
+
 function isMarked(row: string): boolean {
   return /class=["'][^"']*\bwarn\b[^"']*["']/i.test(row);
 }
@@ -68,6 +74,8 @@ describe('digest routes', () => {
     const html = await page.text();
     const digest = await json.json() as NightDigest;
     const rows = tableRows(html);
+    const retryIndex = retryColumn(html);
+    expect(retryIndex).toBeGreaterThanOrEqual(0);
     expect(digest.rows.map((row) => row.job)).toEqual(['a-empty', 'b-retries', 'c-two', 'z-fail']);
     expect(rows.map((row) => cellTexts(row)[0])).toEqual(digest.rows.map((row) => row.job));
     expect(digest.rows[0]).toEqual({
@@ -84,10 +92,12 @@ describe('digest routes', () => {
     });
     for (const [index, digestRow] of digest.rows.entries()) {
       const cells = cellTexts(rows[index]);
-      for (const value of [digestRow.owner ?? '—', String(digestRow.runs), String(digestRow.retries),
+      for (const value of [digestRow.owner ?? '—', String(digestRow.runs),
         digestRow.lastStatus, digestRow.lastError ?? '—', digestRow.firstTime, digestRow.lastTime]) {
         expect(cells).toContain(value);
       }
+      const retries = String(digestRow.retries);
+      expect(digestRow.retries >= 3 ? [retries, `${retries} · high retries`] : [retries]).toContain(cells[retryIndex]);
       expect(cells).not.toContain('');
     }
     expect(cellTexts(rows[0]).filter((text) => text === '—')).toHaveLength(2);
