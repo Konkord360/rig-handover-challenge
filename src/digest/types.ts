@@ -18,4 +18,4 @@ export type NightDigest = {
 };
 
 // Returns null for a missing night; an empty file returns an empty digest.
-export declare function readNight(runsDir: string, night: string): NightDigest | null;
+export { readNight } from './reader.js';
