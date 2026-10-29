@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-10-29
 ---
 
 # Morning digest
@@ -77,3 +78,15 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| [1](https://github.com/Konkord360/rig-handover-challenge/issues/1) | Run log reader | — | OpenCode · github-copilot/gpt-6.1-terra · default | 2026-10-29 |
+| [2](https://github.com/Konkord360/rig-handover-challenge/issues/2) | Digest page | #1 | OpenCode · github-copilot/gpt-6.1-terra · default | 2026-10-29 |
+| [3](https://github.com/Konkord360/rig-handover-challenge/issues/3) | Digest JSON | #1 | OpenCode · github-copilot/gpt-6.1-terra · default | 2026-10-29 |
+| [4](https://github.com/Konkord360/rig-handover-challenge/issues/4) | Board links to digests | #1, #2 | OpenCode · github-copilot/gpt-6.1-terra · default | 2026-10-29 |
+| [5](https://github.com/Konkord360/rig-handover-challenge/issues/5) | Digest route tests | #1, #2, #3 | OpenCode · github-copilot/gpt-6.1-terra · default | 2026-10-29 |
+| [6](https://github.com/Konkord360/rig-handover-challenge/issues/6) | Preview for review | #1, #2, #3, #4, #5 | OpenCode · github-copilot/gpt-6.1-terra · default | 2026-10-29 |
+| [7](https://github.com/Konkord360/rig-handover-challenge/issues/7) | Clean up review preview | #6 and review | OpenCode · github-copilot/gpt-6.1-terra · default | 2026-10-29 |
